@@ -1,0 +1,96 @@
+
+# Ogni file esempi/<citta>.json contiene una lista di esempi per POST /calcola/<citta>:
+#   "descrizione": cosa mostra l'esempio
+#   "input":       i dati inviati
+#   "codice":      il codice di risposta atteso (200 = stima, 400 = stima non possibile)
+#   "output":      la risposta attesa
+#
+# Uso, con il servizio gia' avviato (vedi README):
+#   python verifica_esempi.py
+#   python verifica_esempi.py http://127.0.0.1:9000      (se il servizio e' su un altro indirizzo)
+#
+# Per aggiungere un esempio basta scrivere "descrizione" e "input" nel file della citta':
+# al primo avvio lo script completa "codice" e "output" con la risposta del servizio.
+
+import sys
+import os
+import json
+import urllib.request
+import urllib.error
+
+
+indirizzo = "http://127.0.0.1:8000"
+if len(sys.argv) > 1:
+    indirizzo = sys.argv[1]
+
+cartella = os.path.join(os.path.dirname(os.path.abspath(__file__)), "esempi")
+
+
+def chiama(citta, dati):
+    richiesta = urllib.request.Request(
+        indirizzo + "/calcola/" + citta,
+        data=json.dumps(dati).encode("utf-8"),
+        headers={"Content-Type": "application/json"}
+    )
+    try:
+        risposta = urllib.request.urlopen(richiesta)
+        codice = risposta.status
+        corpo = json.loads(risposta.read().decode("utf-8"))
+    except urllib.error.HTTPError as errore:
+        # le risposte 400 e 422 arrivano qui: il corpo contiene comunque il messaggio
+        codice = errore.code
+        corpo = json.loads(errore.read().decode("utf-8"))
+    return codice, corpo
+
+
+try:
+    urllib.request.urlopen(indirizzo + "/citta")
+except urllib.error.URLError:
+    print("Il servizio non risponde su " + indirizzo)
+    print("Avviarlo in un altro terminale con: uvicorn main:app")
+    sys.exit(1)
+
+
+n_uguali = 0
+n_diversi = 0
+n_nuovi = 0
+
+for nome_file in sorted(os.listdir(cartella)):
+    if not nome_file.endswith(".json"):
+        continue
+
+    citta = nome_file.replace(".json", "")
+    percorso = os.path.join(cartella, nome_file)
+
+    with open(percorso, encoding="utf-8") as f:
+        esempi = json.load(f)
+
+    da_salvare = False
+
+    for esempio in esempi:
+        codice, corpo = chiama(citta, esempio["input"])
+
+        if "output" not in esempio:
+            esempio["codice"] = codice
+            esempio["output"] = corpo
+            da_salvare = True
+            n_nuovi = n_nuovi + 1
+            print("NUOVO    " + citta + " - " + esempio["descrizione"])
+        elif codice == esempio["codice"] and corpo == esempio["output"]:
+            n_uguali = n_uguali + 1
+            print("OK       " + citta + " - " + esempio["descrizione"])
+        else:
+            n_diversi = n_diversi + 1
+            print("DIVERSO  " + citta + " - " + esempio["descrizione"])
+            print("   atteso:   " + str(esempio["codice"]) + " " + json.dumps(esempio["output"], ensure_ascii=False))
+            print("   ottenuto: " + str(codice) + " " + json.dumps(corpo, ensure_ascii=False))
+
+    if da_salvare == True:
+        with open(percorso, "w", encoding="utf-8") as f:
+            json.dump(esempi, f, ensure_ascii=False, indent=2)
+
+print()
+print("Esempi uguali: " + str(n_uguali) + " - diversi: " + str(n_diversi) + " - nuovi: " + str(n_nuovi))
+
+if n_diversi > 0:
+    sys.exit(1)
