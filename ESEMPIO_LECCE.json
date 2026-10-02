@@ -1,0 +1,106 @@
+[
+  {
+    "descrizione": "Piazza Duomo (zona 1), 70 mq, tutte le caratteristiche e buone condizioni",
+    "input": {
+      "via": "PIAZZA DUOMO",
+      "mq_tot": 70,
+      "caratteristiche_zona1": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "servizi_interni": true,
+      "servizi_bidet": true,
+      "buone_condizioni": true
+    },
+    "codice": 200,
+    "output": {
+      "citta": "Lecce",
+      "via": "PIAZZA DUOMO",
+      "zona": 1,
+      "zona_pregio": false,
+      "fascia_iniziale": "A",
+      "fascia_finale": "A",
+      "percentuale_maggiorazioni": 0.0,
+      "canone_mq_min": 4.7,
+      "canone_mq_max": 5.4,
+      "mq_netta": 70.0,
+      "moltiplicatore_superficie": 1.0,
+      "mq_totali": 70.0,
+      "canone_mensile_min": 329.0,
+      "canone_mensile_max": 378.0,
+      "canone_annuo_min": 3948.0,
+      "canone_annuo_max": 4536.0,
+      "note": [],
+      "avvertenze": []
+    }
+  },
+  {
+    "descrizione": "Via Adriatica (zona 2), 95 mq con balconi, 4 anni, ammobiliato",
+    "input": {
+      "via": "VIA ADRIATICA",
+      "mq_tot": 95,
+      "mq_balconi": 10,
+      "caratteristiche_zona2": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "durata": "4 anni (+3%)",
+      "ammobiliato": true
+    },
+    "codice": 200,
+    "output": {
+      "citta": "Lecce",
+      "via": "VIA ADRIATICA",
+      "zona": 2,
+      "zona_pregio": false,
+      "fascia_iniziale": "B",
+      "fascia_finale": "A",
+      "percentuale_maggiorazioni": 3.0,
+      "canone_mq_min": 4.841,
+      "canone_mq_max": 5.562,
+      "mq_netta": 95.0,
+      "moltiplicatore_superficie": 1.0,
+      "mq_totali": 97.5,
+      "canone_mensile_min": 472.0,
+      "canone_mensile_max": 542.3,
+      "canone_annuo_min": 5663.97,
+      "canone_annuo_max": 6507.54,
+      "note": [
+        "Incremento di una fascia: immobile ammobiliato"
+      ],
+      "avvertenze": [
+        "Nota: per gli immobili costruiti dopo il 1973 il primo posto auto ovvero box auto di pertinenza dell'immobile non può essere affittato separatamente dall'appartamento."
+      ]
+    }
+  },
+  {
+    "descrizione": "Errore: via non presente nello stradario",
+    "input": {
+      "via": "VIA CHE NON ESISTE",
+      "mq_tot": 70
+    },
+    "codice": 400,
+    "output": {
+      "detail": "La via non è stata trovata"
+    }
+  }
+]
