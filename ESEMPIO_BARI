@@ -1,0 +1,141 @@
+[
+  {
+    "descrizione": "Murat, 85 mq, contratto agevolato di 3 anni, 10 caratteristiche",
+    "input": {
+      "zona": "MURAT",
+      "superficie_utile": 85,
+      "superficie_accessori": 8,
+      "tipo_contratto": "Agevolato (3+2)",
+      "durata_contratto": "3 anni",
+      "classe_energetica": "G o non dichiarata",
+      "caratteristiche": [
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false
+      ]
+    },
+    "codice": 200,
+    "output": {
+      "citta": "Bari",
+      "zona": "MURAT",
+      "superficie_convenzionale": 87.0,
+      "superficie_calcolo": 87.0,
+      "fascia": "A",
+      "canone_mq_base_min": 6.63,
+      "canone_mq_base_max": 8.2,
+      "incremento_energetico": 0.0,
+      "maggiorazione_durata": 0.0,
+      "canone_mq_min": 6.63,
+      "canone_mq_max": 8.2,
+      "canone_mensile_min": 576.81,
+      "canone_mensile_max": 713.4,
+      "canone_annuo_min": 6921.72,
+      "canone_annuo_max": 8560.8,
+      "note": [],
+      "avvertenze": [
+        "È ammessa una tolleranza del 4% in più o in meno sulla superficie convenzionale."
+      ]
+    }
+  },
+  {
+    "descrizione": "Japigia, 55 mq totalmente ammobiliato, 5 anni, classe B",
+    "input": {
+      "zona": "JAPIGIA E SANT'ANNA",
+      "superficie_utile": 55,
+      "durata_contratto": "5 anni (+7%)",
+      "classe_energetica": "B (+3%)",
+      "caratteristiche": [
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false
+      ],
+      "totalmente_ammobiliato": true
+    },
+    "codice": 200,
+    "output": {
+      "citta": "Bari",
+      "zona": "JAPIGIA E SANT'ANNA",
+      "superficie_convenzionale": 55.0,
+      "superficie_calcolo": 66.0,
+      "fascia": "A",
+      "canone_mq_base_min": 5.26,
+      "canone_mq_base_max": 6.6,
+      "incremento_energetico": 0.03,
+      "maggiorazione_durata": 0.07,
+      "canone_mq_min": 5.797,
+      "canone_mq_max": 7.2739,
+      "canone_mensile_min": 382.61,
+      "canone_mensile_max": 480.07,
+      "canone_annuo_min": 4591.32,
+      "canone_annuo_max": 5760.84,
+      "note": [],
+      "avvertenze": [
+        "È ammessa una tolleranza del 4% in più o in meno sulla superficie convenzionale."
+      ]
+    }
+  },
+  {
+    "descrizione": "Errore: superficie non inserita",
+    "input": {
+      "zona": "MADONNELLA"
+    },
+    "codice": 400,
+    "output": {
+      "detail": "Inserire la superficie dell'immobile prima di stimare il canone"
+    }
+  }
+]
