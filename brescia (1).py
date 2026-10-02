@@ -6,9 +6,6 @@ from fastapi import HTTPException
 
 
 
-# valori ANNUI in euro al mq (minimo, massimo) per area omogenea
-# valori_a2: categorie catastali A/1, A/2, A/7, A/8, A/9, A/11
-# valori_a3: categorie catastali A/3, A/4, A/5, A/6
 
 valori_a2 = {
     "1 - Centro": (33.10, 72.50),
@@ -171,8 +168,7 @@ NOTA_STUDENTI = ("Per i contratti destinati agli studenti universitari le fasce 
 
 
 # MODELLO DI INPUT
-# I campi "magg_arredo", "magg_classe" e "magg_metro" erano slider: se non vengono
-# inviati (None) si usa il valore che lo slider aveva di default, cioe' il tetto massimo.
+
 
 
 class InputBrescia(BaseModel):
@@ -446,12 +442,12 @@ def calcola(dati: InputBrescia) -> dict:
     elementi_massimo = [mx1, mx2, mx3, mx4, mx5, mx6, mx7]
     n_massimo = sum(e for e in elementi_massimo if e == True)
 
-    # ELEMENTI CHE IMPONGONO IL VALORE MINIMO (punto A.8)
+    # ELEMENTI CHE IMPONGONO IL VALORE MINIMO 
 
     condizioni_negative = dati.elementi_minimo
     n_negative = sum(c for c in condizioni_negative if c == True)
 
-    # MAGGIORAZIONI (sommate)
+    # MAGGIORAZIONI 
 
     perc_totale = 0.0
 
